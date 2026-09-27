@@ -8,26 +8,19 @@ python3 -m http.server 8000
 
 Publicado via GitHub Pages (Settings → Pages → Deploy from a branch → esta branch, pasta `/`).
 
-## Hero: a viagem Istambul → Maputo
+## Hero: a travessia de Istambul a Maputo
 
-`js/hero.js` compõe a cena top-down em camadas num `<canvas>`, com a câmara controlada pelo scroll
-(700vh no desktop, 560vh no telemóvel):
+O vídeo ilustrado (aguarela / miniatura otomana, 10 s) foi convertido em 120 imagens WebP
+(`assets/viagem-mar/d/` 1280×720 para desktop, `m/` 960×540 para telemóvel). `js/hero.js` lê
+apenas a posição do scroll nativo, escolhe a imagem e funde-a com a seguinte num `<canvas>`,
+para o movimento ser contínuo nos dois sentidos. As imagens carregam progressivamente
+(de 8 em 8, depois 4, 2 e 1), por isso a viagem é navegável logo nos primeiros segundos.
 
-| Camada | Asset | Movimento |
-|---|---|---|
-| Chão | `env_0*.webp` (5 cenários) | pan contínuo + zoom ligado à altitude |
-| Névoa de altitude | — | mais forte em cruzeiro |
-| Sombras das nuvens | `cloud_01` (silhueta desfocada) | seguem as nuvens baixas, afastadas pela altitude |
-| Nuvens baixas | `cloud_01` | parallax lento |
-| Rota pontilhada | — | rasto atrás do avião |
-| Sombra do avião | `plane_01` (silhueta) | afasta-se em cruzeiro, cola ao avião ao aterrar |
-| Avião | `plane_01` | inclinação suave, descola de baixo, sai por cima no fim |
-| Nuvens altas | `cloud_01` (desfocada) | parallax rápido, por cima do avião |
-| Bancos de nuvens | `cloud_01` | escondem a troca entre cenários |
+- Legenda numa cartela (moldura das miniaturas otomanas): Istambul → A travessia → Maputo.
+- No fim, a cartela do restaurante com "Ver o menu" e "Reservar mesa".
+- Com `prefers-reduced-motion`, mostra a última imagem e a chegada, sem scrub.
 
-Timeline: descolagem em Istambul (0–14%) → cruzeiro por Mediterrâneo, África Oriental e Costa (14–70%)
-→ descida com zoom sobre Maputo (70–90%) → o avião sai de cena e entra o restaurante (88–100%).
-
-Com `prefers-reduced-motion` a animação é desligada e mostra-se diretamente a chegada.
+`assets/viagem/` (vistas aéreas da versão anterior) continua no repositório e é usado pelo Reel
+em `videos/reel-istambul-maputo/`.
 
 Os originais (300 frames JPG, SVG, vídeo preview) ficam fora do repositório (203 MB → 2 MB em WebP).
