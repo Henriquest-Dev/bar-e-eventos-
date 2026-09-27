@@ -1,26 +1,37 @@
-# Lokanta — cozinha turca em Maputo
+# Steak House — proposta de site
 
-Site estático (HTML/CSS/JS, sem build). Servir a pasta localmente:
+Conceito de site para um restaurante de grelhados turcos em Maputo
+(Instagram: [@steak_house_restorant](https://www.instagram.com/steak_house_restorant/)).
+Site estático (HTML/CSS/JS, sem build). Para ver localmente:
 
 ```
 python3 -m http.server 8000
 ```
 
-Publicado via GitHub Pages (Settings → Pages → Deploy from a branch → esta branch, pasta `/`).
+Publicado no GitHub Pages a partir da branch `gh-pages`.
 
-## Hero: a travessia de Istambul a Maputo
+## Estrutura
 
-O vídeo ilustrado (aguarela / miniatura otomana, 10 s) foi convertido em 120 imagens WebP
-(`assets/viagem-mar/d/` 1280×720 para desktop, `m/` 960×540 para telemóvel). `js/hero.js` lê
-apenas a posição do scroll nativo, escolhe a imagem e funde-a com a seguinte num `<canvas>`,
-para o movimento ser contínuo nos dois sentidos. As imagens carregam progressivamente
-(de 8 em 8, depois 4, 2 e 1), por isso a viagem é navegável logo nos primeiros segundos.
+- `index.html` — página única: hero, menu em destaque, "O que há na nossa mesa", a casa, reservas, rodapé.
+- `css/style.css` — tokens (mármore, vermelho pul biber, azul de İznik), layout e animações.
+- `js/menu-data.js` — **os pratos do menu** (nome turco, nome em português, descrição, ingredientes)
+  e o número de WhatsApp das reservas (`window.WHATSAPP`). É o ficheiro a editar para mudar o menu.
+- `js/main.js` — menu em destaque (troca de prato com rotação, separadores, carrossel, deslizar no
+  telemóvel), categorias, formulário de reserva (abre o WhatsApp com a mensagem pronta) e o parallax
+  dos ingredientes.
+- `assets/dishes/<id>.webp` — pratos recortados, vistos de cima (quadrados, fundo transparente).
+- `assets/ingredients/` — especiarias e folhas recortadas.
+- `assets/texture/marble.webp` — textura de mármore gerada (sem costuras).
+- `creditos.html` — autoria e licença de cada fotografia.
 
-- Legenda numa cartela (moldura das miniaturas otomanas): Istambul → A travessia → Maputo.
-- No fim, a cartela do restaurante com "Ver o menu" e "Reservar mesa".
-- Com `prefers-reduced-motion`, mostra a última imagem e a chegada, sem scrub.
+## Trocar pelas fotografias do restaurante
 
-`assets/viagem/` (vistas aéreas da versão anterior) continua no repositório e é usado pelo Reel
-em `videos/reel-istambul-maputo/`.
+Guardar cada prato em `assets/dishes/<id>.webp` com o mesmo `id` de `js/menu-data.js`,
+de preferência visto de cima e recortado (PNG/WebP transparente, 900×900).
+Depois retirar a entrada correspondente de `creditos.html`.
 
-Os originais (300 frames JPG, SVG, vídeo preview) ficam fora do repositório (203 MB → 2 MB em WebP).
+As fotografias provisórias vêm do Wikimedia Commons e do Openverse (licenças CC BY, CC BY-SA e CC0).
+
+## Outras pastas
+
+- `videos/reel-istambul-maputo/` — Reel do Instagram (HyperFrames) feito numa fase anterior.
