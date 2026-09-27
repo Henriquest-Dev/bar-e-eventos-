@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Cormorant"; font-style: normal; font-weight: 500 600; src: url("assets/fonts/cormorant-500-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Cormorant"; font-style: italic; font-weight: 500; src: url("assets/fonts/cormorant-500-italic.woff2") format("woff2"); }
+
+      :root {
+        --ink: #0b1d24;
+        --cream: #f6eee0;
+        --gold: #e9c27a;
+        --gold-soft: #ffe2a7;
+        --serif: "Cormorant", serif;
+        --sans: "Montserrat", sans-serif;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: var(--ink); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--ink); color: var(--cream); font-family: var(--sans); }
+
+      /* camadas de cena */
+      #scene { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+      .light { position: absolute; inset: 0; pointer-events: none;
+        background:
+          radial-gradient(90% 55% at 88% 0%, rgba(255, 196, 120, .32), transparent 60%),
+          radial-gradient(130% 90% at 50% 50%, transparent 52%, rgba(5, 16, 21, .72) 100%); }
+      .grain { position: absolute; inset: 0; pointer-events: none; opacity: .09; mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+      .veil { position: absolute; inset: 0; pointer-events: none; opacity: 0;
+        background: radial-gradient(120% 80% at 50% 45%, rgba(11, 29, 36, .55), rgba(11, 29, 36, .9) 75%); }
+
+      /* texto — zonas seguras do Reel: topo 250px, base 420px, direita 150px livres */
+      .eyebrow { font: 700 26px/1 var(--sans); letter-spacing: .34em; text-transform: uppercase; color: var(--gold-soft); }
+      .display { font-family: var(--serif); font-weight: 500; color: #fff; letter-spacing: -.02em; text-shadow: 0 4px 24px rgba(0, 0, 0, .55), 0 10px 70px rgba(0, 0, 0, .5); }
+      .display em { font-style: italic; color: var(--gold-soft); }
+
+      #hook-eyebrow, #arrive-eyebrow { position: absolute; left: 80px; top: 400px; padding: 16px 26px; border-radius: 999px; background: rgba(11, 29, 36, .72); }
+      .title { position: absolute; left: 80px; right: 150px; top: 480px; font-size: 190px; line-height: 1; }
+      .title .word { display: block; }
+      #hud { position: absolute; left: 80px; right: 150px; top: 250px; display: flex; justify-content: space-between; align-items: center; opacity: 0; padding: 22px 34px; border-radius: 999px; background: rgba(11, 29, 36, .72); border: 2px solid rgba(255, 226, 167, .35); }
+      #hud .lbl { font: 700 24px/1 var(--sans); letter-spacing: .28em; text-transform: uppercase; color: var(--gold-soft); }
+      #hud .km { font: 700 44px/1 var(--sans); color: #fff; font-variant-numeric: tabular-nums; letter-spacing: .02em; }
+
+      .chapter { position: absolute; left: 80px; right: 150px; bottom: 470px; }
+      .chapter .n { font: 700 26px/1 var(--sans); letter-spacing: .3em; color: var(--gold-soft); }
+      .chapter .display { display: block; font-size: 120px; line-height: .95; margin-top: 14px; }
+      .chapter .coords { display: block; margin-top: 18px; font: 400 26px/1 var(--sans); letter-spacing: .16em; color: rgba(246, 238, 224, .85); }
+
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="15" data-width="1080" data-height="1920">
+      <canvas id="scene" class="clip" width="1080" height="1920" data-start="0" data-duration="15" data-track-index="0"></canvas>
+      <div id="light" class="light clip" data-start="0" data-duration="15" data-track-index="1"></div>
+      <div id="grain" class="grain clip" data-start="0" data-duration="15" data-track-index="2"></div>
+      <div id="veil" class="veil clip" data-start="0" data-duration="15" data-track-index="3"></div>
+
+      <!-- 0–3s: gancho -->
+      <p id="hook-eyebrow" class="eyebrow clip" data-start="0" data-duration="3.2" data-track-index="4">Uma viagem de sabores</p>
+      <p id="hook-title" class="display title clip" data-start="0" data-duration="3.2" data-track-index="8"><span class="word">De</span><span class="word">Istambul</span></p>
+
+      <!-- contador de distância -->
+      <div id="hud" class="clip" data-start="0.6" data-duration="11.2" data-track-index="5"><span class="lbl">Até Maputo</span><span class="km" id="km">7 459 km</span></div>
+
+      <!-- etapas -->
+      <div id="ch1" class="chapter clip" data-start="3.3" data-duration="2.1" data-track-index="6">
+        <span class="n">02 / 05</span><span class="display">Mediterrâneo</span><span class="coords">34.2° N · 28.4° E</span>
+      </div>
+      <div id="ch2" class="chapter clip" data-start="5.5" data-duration="2.0" data-track-index="6">
+        <span class="n">03 / 05</span><span class="display">África Oriental</span><span class="coords">3.4° S · 36.7° E</span>
+      </div>
+      <div id="ch3" class="chapter clip" data-start="7.6" data-duration="1.9" data-track-index="6">
+        <span class="n">04 / 05</span><span class="display">Costa de Maputo</span><span class="coords">24.8° S · 33.9° E</span>
+      </div>
+
+      <!-- 9.6–12s: chegada -->
+      <p id="arrive-eyebrow" class="eyebrow clip" data-start="10.1" data-duration="2.1" data-track-index="4">05 / 05 · 25.97° S · 32.57° E</p>
+      <p id="arrive-title" class="display title clip" data-start="10.1" data-duration="2.1" data-track-index="8"><span class="word">a</span><em class="word">Maputo.</em></p>
+
+      <!-- 12–15s: marca (sub-composição) -->
+      <div id="lockup" data-composition-id="lockup" data-composition-src="compositions/lockup.html" data-start="12" data-duration="3" data-track-index="7" data-width="1080" data-height="1920"></div>
+
+      <audio id="bgm" src="assets/bgm/track.wav" data-start="0" data-duration="15" data-track-index="10" data-volume="0.9"
+        data-automation='{"version":1,"lanes":[{"target":"volume","points":[{"t":0,"v":0},{"t":0.8,"v":1},{"t":13.2,"v":1},{"t":15,"v":0}]}]}'></audio>
+    </div>
+
+    <script>
+      (() => {
+        const W = 1080, H = 1920, DUR = 15;
+        const canvas = document.getElementById("scene");
+        const ctx = canvas.getContext("2d");
+        ctx.imageSmoothingQuality = "high";
+
+        // ---------- utilitários (deterministas) ----------
+        const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+        const lerp = (a, b, t) => a + (b - a) * t;
+        const smooth = (a, b, v) => { const t = clamp((v - a) / (b - a)); return t * t * (3 - 2 * t); };
+        const easeInOut = t => (t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+        const seeded = (s => () => (s = (s * 16807) % 2147483647) / 2147483647)(7);
+        const wrap = (v, span) => ((v % span) + span) % span;
+
+        // ---------- tempo do vídeo → progresso da viagem (u) ----------
+        // 0–2.6s descolagem · 2.6–9.4s cruzeiro · 9.4–11.8s descida · 11.8–13s avião sai
+        const KEYS = [[0, 0, null], [2.6, .14, easeInOut], [9.4, .70, t => t], [11.8, .90, easeInOut], [13, 1, t => t * t]];
+        function uAt(t) {
+          for (let i = 1; i < KEYS.length; i++) {
+            const [t1, u1, ease] = KEYS[i], [t0, u0] = KEYS[i - 1];
+            if (t <= t1) return lerp(u0, u1, ease((t - t0) / (t1 - t0)));
+          }
+          return 1;
+        }
+
+        // ---------- cena (mesma lógica da Hero do site) ----------
+        const BOUND = [.19, .37, .54, .70], BANK = .045, LAND = .9;
+        const far = Array.from({ length: 7 }, () => ({ x: seeded(), y: seeded(), s: lerp(.16, .28, seeded()), a: lerp(.35, .6, seeded()), v: lerp(.9, 1.3, seeded()) }));
+        const near = Array.from({ length: 3 }, () => ({ x: seeded(), y: seeded(), s: lerp(.55, .8, seeded()), a: lerp(.55, .8, seeded()), v: lerp(2.2, 3, seeded()) }));
+        const banks = BOUND.map(() => Array.from({ length: 11 }, (_, i) => ({ x: (i + seeded() * .6) / 10.5 - .05, y: seeded() * .5, s: lerp(.5, .95, seeded()), v: lerp(.85, 1.25, seeded()), over: i % 3 === 0 })));
+
+        function scene(u) {
+          const alt = smooth(0, .14, u) * (1 - smooth(BOUND[3], LAND, u));
+          const zoom = 1.3 + .62 * Math.pow(1 - alt, 1.6);
+          let a = BOUND.findIndex(b => u < b); if (a < 0) a = 4;
+          let b = a, mix = 0, bank = -1, w = 0;
+          BOUND.forEach((bd, i) => { if (Math.abs(u - bd) < BANK) { bank = i; w = (u - bd + BANK) / (2 * BANK); a = i; b = i + 1; mix = smooth(.38, .62, w); } });
+          return { alt, zoom, a, b, mix, bank, w };
+        }
+        function pan(k, u) {
+          const s = k ? BOUND[k - 1] : 0, e = k < 4 ? BOUND[k] : LAND;
+          const t = clamp((u - s + BANK) / (e - s + 2 * BANK), -.2, 1.2);
+          if (k === 4) return { x: .55 + .15 * Math.sin(u * 6), y: lerp(-.9, .15, easeInOut(clamp(t))) };
+          return { x: .35 * Math.sin(u * 7 + k * 1.7), y: lerp(-.95, .95, t) };
+        }
+
+        let plates = [], plane, cloud, cloudSoft, cloudShadow, planeShadow;
+        const sprite = (w, h, paint) => { const c = document.createElement("canvas"); c.width = w; c.height = h; paint(c.getContext("2d"), w, h); return c; };
+        const silhouette = (img, blur, rgb) => sprite(img.width, img.height, (g, w, h) => {
+          g.filter = `blur(${blur}px)`; g.drawImage(img, 0, 0, w, h);
+          g.filter = "none"; g.globalCompositeOperation = "source-in"; g.fillStyle = rgb; g.fillRect(0, 0, w, h);
+        });
+
+        function ground(img, zoom, p, alpha) {
+          if (!img || alpha <= 0) return;
+          const r = Math.max(W / img.width, H / img.height) * zoom, rw = img.width * r, rh = img.height * r;
+          const mx = (rw - W) / 2, my = (rh - H) / 2;
+          ctx.globalAlpha = alpha;
+          ctx.drawImage(img, -mx + clamp(p.x, -1, 1) * mx, -my + clamp(p.y, -1, 1) * my, rw, rh);
+          ctx.globalAlpha = 1;
+        }
+        function cloudAt(img, cx, cy, size, alpha) {
+          if (alpha <= .01) return;
+          ctx.globalAlpha = alpha; ctx.drawImage(img, cx - size / 2, cy - size / 2, size, size); ctx.globalAlpha = 1;
+        }
+
+        function draw(t) {
+          const u = uAt(t), S = scene(u), big = H, minSide = W;
+          const travel = u * 9 + t * .02;                          // + deriva lenta para as nuvens nunca pararem
+
+          ctx.fillStyle = "#103947"; ctx.fillRect(0, 0, W, H);
+          ground(plates[S.a], S.zoom, pan(S.a, u), 1);
+          if (S.mix > 0) ground(plates[S.b], S.zoom, pan(S.b, u), S.mix);
+
+          ctx.fillStyle = `rgba(214,232,238,${(.14 * S.alt).toFixed(3)})`; ctx.fillRect(0, 0, W, H);
+
+          const cloudiness = smooth(.04, .2, S.alt);
+          far.forEach(c => {
+            const size = c.s * big * (1.25 - .25 * S.alt), span = H + size * 2;
+            const x = c.x * (W + size) - size / 2, y = wrap(c.y * span + travel * H * c.v, span) - size;
+            cloudAt(cloudShadow, x + .06 * big * S.alt, y + .09 * big * S.alt, size * .9, .38 * cloudiness);
+          });
+          far.forEach(c => {
+            const size = c.s * big * (1.25 - .25 * S.alt), span = H + size * 2;
+            const x = c.x * (W + size) - size / 2, y = wrap(c.y * span + travel * H * c.v * 1.25, span) - size;
+            cloudAt(cloud, x, y, size, c.a * cloudiness);
+          });
+
+          const bankLayer = over => {
+            if (S.bank < 0) return;
+            const fade = Math.sin(Math.PI * S.w);
+            banks[S.bank].forEach(c => {
+              if (c.over !== over) return;
+              const size = c.s * big, y = lerp(-size, H + size, clamp(S.w * c.v + c.y * .35 - .15, 0, 1.1));
+              cloudAt(over ? cloudSoft : cloud, c.x * W, y, size, fade * (over ? .85 : .95));
+            });
+          };
+          bankLayer(false);
+
+          // avião: descola de baixo, sai por cima no fim (com rasto de velocidade)
+          const exit = easeInOut(smooth(.9, 1, u));
+          const pw = minSide * .3 * (1 - .12 * (1 - S.alt)), ph = pw * plane.height / plane.width;
+          const px = W / 2 + .03 * W * Math.sin(u * 11) * S.alt;
+          const py = lerp(H * .52, -ph, exit) + (1 - smooth(0, .1, u)) * H * .22;
+          const bankAngle = -5 * Math.sin(u * 11) * S.alt * Math.PI / 180;
+
+          ctx.fillStyle = "rgba(255,226,167,.85)";
+          for (let i = 1; i <= 9; i++) {
+            const d = i * .036 * minSide + ph * .45;
+            ctx.globalAlpha = (1 - i / 10) * .8 * smooth(.01, .06, u) * (1 - exit);
+            ctx.beginPath(); ctx.arc(px - Math.sin(bankAngle) * d + Math.sin(u * 11 - i * .25) * 4, py + d, 4, 0, Math.PI * 2); ctx.fill();
+          }
+          ctx.globalAlpha = 1;
+
+          const off = S.alt * .16 * minSide, ss = 1 - .35 * S.alt;
+          ctx.save(); ctx.translate(px + off * .7, py + off); ctx.rotate(bankAngle);
+          ctx.globalAlpha = lerp(.55, .2, S.alt) * (1 - exit);
+          ctx.drawImage(planeShadow, -pw * ss / 2, -ph * ss / 2, pw * ss, ph * ss);
+          ctx.restore();
+
+          // motion-blur-streak: ecos do avião que colapsam no avião, só durante a saída
+          const streak = Math.sin(Math.PI * clamp(exit));
+          for (let i = 3; i >= 1 && streak > .02; i--) {
+            ctx.save(); ctx.translate(px, py + i * 26 * streak); ctx.globalAlpha = .18 * streak / i;
+            ctx.drawImage(plane, -pw / 2, -ph / 2, pw, ph); ctx.restore();
+          }
+          ctx.save(); ctx.translate(px, py); ctx.rotate(bankAngle); ctx.globalAlpha = 1;
+          ctx.drawImage(plane, -pw / 2, -ph / 2, pw, ph);
+          ctx.restore();
+
+          // depth-of-field-blur: nuvens altas desfocadas, por cima do avião
+          near.forEach(c => {
+            const size = c.s * big, span = H + size * 2;
+            const x = c.x * (W + size * .6) - size * .3, y = wrap(c.y * span + travel * H * c.v, span) - size;
+            cloudAt(cloudSoft, x, y, size, c.a * cloudiness * .75);
+          });
+          bankLayer(true);
+
+          // contador de distância
+          document.getElementById("km").textContent =
+            Math.round(7459 * (1 - smooth(.01, LAND, u))).toLocaleString("pt-PT").replace(/ | |\./g, " ") + " km";
+        }
+
+        // ---------- montagem: só regista a timeline depois de tudo carregado ----------
+        const load = src => new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = src; });
+        const names = ["env_01_istambul", "env_02_mediterraneo", "env_03_africa_oriental", "env_04_costa_maputo", "env_05_maputo"];
+
+        Promise.all([
+          ...names.map(n => load(`assets/viagem/${n}.webp`)),
+          load("assets/viagem/plane_01.webp"),
+          load("assets/viagem/cloud_01.webp"),
+          document.fonts.ready,
+        ]).then(res => {
+          plates = res.slice(0, 5); plane = res[5]; cloud = res[6];
+          cloudSoft = sprite(cloud.width, cloud.height, (g, w, h) => { g.filter = "blur(12px)"; g.drawImage(cloud, 0, 0, w, h); });
+          cloudShadow = silhouette(cloud, 28, "rgb(0,18,26)");
+          planeShadow = silhouette(plane, 6, "rgb(0,14,20)");
+
+          const state = { t: 0 };
+          const tl = gsap.timeline({ paused: true });
+
+          // driver único da câmara: tempo linear → desenho determinista
+          tl.to(state, { t: DUR, duration: DUR, ease: "none", onUpdate: () => draw(state.t) }, 0);
+
+          // gancho: waterfall-entry
+          tl.fromTo("#hook-eyebrow", { opacity: 1, y: 24 }, { opacity: 1, y: 0, duration: .6, ease: "power3.out" }, 0);
+          tl.fromTo("#hook-title .word", { opacity: 1, yPercent: 18 }, { opacity: 1, yPercent: 0, duration: .9, ease: "expo.out", stagger: .12 }, 0);
+          tl.to(["#hook-eyebrow", "#hook-title"], { opacity: 0, y: -60, duration: .45, ease: "power2.in" }, 2.7);
+
+          tl.fromTo("#hud", { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: .5, ease: "power2.out" }, .9);
+          tl.to("#hud", { opacity: 0, duration: .4, ease: "power1.in" }, 11.3);
+
+          // etapas
+          [["#ch1", 3.3, 2.1], ["#ch2", 5.5, 2.0], ["#ch3", 7.6, 1.9]].forEach(([id, s, d]) => {
+            tl.fromTo(`${id} .n`, { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: .4, ease: "power3.out" }, s + .05);
+            tl.fromTo(`${id} .display`, { opacity: 0, y: 50, filter: "blur(10px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: .6, ease: "expo.out" }, s + .1);
+            tl.fromTo(`${id} .coords`, { opacity: 0 }, { opacity: 1, duration: .4, ease: "power1.out" }, s + .35);
+            tl.to(id, { opacity: 0, y: -30, duration: .35, ease: "power2.in" }, s + d - .4);
+          });
+
+          // chegada
+          tl.fromTo("#arrive-eyebrow", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: .45, ease: "power3.out" }, 10.15);
+          tl.fromTo("#arrive-title .word", { opacity: 0, yPercent: 60 }, { opacity: 1, yPercent: 0, duration: .8, ease: "expo.out", stagger: .14 }, 10.25);
+          tl.to(["#arrive-eyebrow", "#arrive-title"], { opacity: 0, y: -60, duration: .45, ease: "power2.in" }, 11.7);
+
+          // véu + marca
+          tl.to("#veil", { opacity: 1, duration: 1.1, ease: "power2.inOut" }, 11.6);
+
+          draw(0);
+          window.__timelines["main"] = tl;
+          if (window.__hfForceTimelineRebind) window.__hfForceTimelineRebind();
+        });
+      })();
+    </script>
+  </body>
+</html>

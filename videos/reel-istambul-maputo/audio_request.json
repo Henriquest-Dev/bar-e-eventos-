@@ -1,0 +1,10 @@
+{
+  "provider": "auto",
+  "lang": "pt",
+  "lines": [],
+  "bgm": {
+    "mode": "generate",
+    "prompt": "warm cinematic travel theme, turkish oud melody over soft strings and light darbuka percussion, uplifting and elegant, gentle build to a warm arrival, 100 BPM, instrumental",
+    "query": "warm cinematic turkish travel"
+  }
+}

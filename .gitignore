@@ -1,3 +1,10 @@
 .DS_Store
 *.zip
 node_modules/
+
+# HyperFrames: saídas geradas
+videos/*/renders/
+videos/*/snapshots/
+videos/*/assets/bgm/*.log
+videos/*/bgm_status.json
+videos/*/.hyperframes/
