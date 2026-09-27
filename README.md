@@ -1,21 +1,33 @@
-# Bar & Eventos — website
+# Lokanta — cozinha turca em Maputo
 
-Site estático (HTML/CSS/JS, sem build). Abrir `index.html` ou servir a pasta:
+Site estático (HTML/CSS/JS, sem build). Servir a pasta localmente:
 
 ```
 python3 -m http.server 8000
 ```
 
-## Hero: viagem Istambul → Maputo
+Publicado via GitHub Pages (Settings → Pages → Deploy from a branch → esta branch, pasta `/`).
 
-A animação é desenhada em `<canvas>` por `js/journey.js`, controlada pelo scroll,
-a partir de 5 cenários + avião + nuvem (`assets/viagem/`, ~2.7 MB no total).
-Reproduz a lógica do `compose_premium.py` original em vez de usar os 300 frames
-pré-renderizados (~175 MB), por isso fica nítida em qualquer ecrã e carrega rápido.
+## Hero: a viagem Istambul → Maputo
 
-- `env_*.webp` — cenários 1672×941 (desktop)
-- `env_*-m.webp` — cenários 960×540 (telemóvel)
-- `plane_01.webp`, `cloud_01.webp` — elementos com transparência
-- `poster.jpg` — fundo enquanto o canvas carrega
+`js/hero.js` compõe a cena top-down em camadas num `<canvas>`, com a câmara controlada pelo scroll
+(700vh no desktop, 560vh no telemóvel):
 
-Os originais (frames JPG, SVG, PNG, vídeo preview) ficam fora do repositório.
+| Camada | Asset | Movimento |
+|---|---|---|
+| Chão | `env_0*.webp` (5 cenários) | pan contínuo + zoom ligado à altitude |
+| Névoa de altitude | — | mais forte em cruzeiro |
+| Sombras das nuvens | `cloud_01` (silhueta desfocada) | seguem as nuvens baixas, afastadas pela altitude |
+| Nuvens baixas | `cloud_01` | parallax lento |
+| Rota pontilhada | — | rasto atrás do avião |
+| Sombra do avião | `plane_01` (silhueta) | afasta-se em cruzeiro, cola ao avião ao aterrar |
+| Avião | `plane_01` | inclinação suave, descola de baixo, sai por cima no fim |
+| Nuvens altas | `cloud_01` (desfocada) | parallax rápido, por cima do avião |
+| Bancos de nuvens | `cloud_01` | escondem a troca entre cenários |
+
+Timeline: descolagem em Istambul (0–14%) → cruzeiro por Mediterrâneo, África Oriental e Costa (14–70%)
+→ descida com zoom sobre Maputo (70–90%) → o avião sai de cena e entra o restaurante (88–100%).
+
+Com `prefers-reduced-motion` a animação é desligada e mostra-se diretamente a chegada.
+
+Os originais (300 frames JPG, SVG, vídeo preview) ficam fora do repositório (203 MB → 2 MB em WebP).
