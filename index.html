@@ -3,76 +3,195 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Lokanta — Cozinha turca em Maputo</title>
-<meta name="description" content="Cozinha turca, feita em Maputo. Kebab na brasa, mezze para partilhar e baklava com chá turco.">
-<meta name="theme-color" content="#0f2742">
-<link rel="preload" as="image" href="assets/viagem-mar/poster.jpg" fetchpriority="high">
+<title>Steak House — Grelhados turcos em Maputo</title>
+<meta name="description" content="Kebab no carvão, carne na brasa, mezze para partilhar e baklava com chá turco. Grelhados turcos em Maputo.">
+<meta name="theme-color" content="#f1efec">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rakkas&family=Karla:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<a class="skip" href="#restaurante">Saltar para o conteúdo</a>
+<a class="skip" href="#menu">Saltar para o menu</a>
 
-<!-- Cartela: moldura de inscrição das miniaturas otomanas, reutilizada nos painéis de texto -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="tulip" viewBox="0 0 24 24"><path d="M12 21c0-5 0-7-4-10 1 4 3 5 4 10Zm0 0c0-5 0-7 4-10-1 4-3 5-4 10Zm0-9c-3-2-3-6 0-9 3 3 3 7 0 9Z" fill="currentColor"/></symbol>
-</svg>
-
-<header class="nav">
-  <a class="nav__brand" href="#top">Lokanta</a>
-  <a class="btn btn--nav" href="#restaurante">Reservar mesa</a>
+<header class="nav" id="nav">
+  <a class="brand" href="#top" aria-label="Steak House, início">
+    <svg class="brand__mark" viewBox="0 0 40 40" aria-hidden="true"><use href="#tulip"/></svg>
+    <span class="brand__name">Steak House</span>
+  </a>
+  <nav class="nav__links" aria-label="Principal">
+    <a href="#menu">Menu</a>
+    <a href="#mesa">Pratos</a>
+    <a href="#casa">A casa</a>
+    <a href="#reservas">Reservas</a>
+  </nav>
+  <a class="btn btn--small" href="#reservas">Reservar mesa</a>
 </header>
 
-<section class="hero" id="top" aria-label="A viagem de Istambul a Maputo">
-  <div class="hero__stage">
-    <canvas class="hero__canvas" id="hero-canvas" aria-hidden="true"></canvas>
+<main>
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="top">
+    <div class="hero__copy">
+      <p class="kicker">Grelhados turcos em Maputo</p>
+      <h1 class="display hero__title">Carne na brasa, à moda de Istambul.</h1>
+      <p class="hero__lead">Kebab feito no carvão, mezze para partilhar e baklava com chá turco no fim da refeição.</p>
+      <div class="hero__cta">
+        <a class="btn" href="#menu">Ver o menu</a>
+        <a class="btn btn--ghost" href="#reservas">Reservar mesa</a>
+      </div>
+    </div>
 
-    <p class="hero__hint" id="hint">
-      <span>Role para zarpar</span>
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v15m0 0-6-6m6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </p>
+    <div class="hero__plate" aria-hidden="true">
+      <img class="plate plate--spin" id="hero-plate" src="assets/dishes/sis.webp" alt="" width="900" height="900" fetchpriority="high">
+    </div>
 
-    <!-- Legenda da viagem -->
-    <div class="cartouche story" id="story" aria-live="polite">
-      <svg class="cartouche__tulip cartouche__tulip--l" aria-hidden="true"><use href="#tulip"/></svg>
-      <svg class="cartouche__tulip cartouche__tulip--r" aria-hidden="true"><use href="#tulip"/></svg>
-      <p class="story__step"><span id="story-n">1</span> de 3</p>
-      <h2 class="story__place" id="story-place">Istambul</h2>
-      <p class="story__text" id="story-text">Onde aprendemos a cozinhar: carne na brasa, pão acabado de sair do forno e chá servido em copo de vidro.</p>
+    <div class="scatter" aria-hidden="true">
+      <img class="ing" data-depth=".35" style="--x:4%;--y:6%;--w:120px;--r:-18deg" src="assets/ingredients/chili.webp" alt="">
+      <img class="ing" data-depth=".6" style="--x:44%;--y:3%;--w:74px;--r:22deg" src="assets/ingredients/anise.webp" alt="">
+      <img class="ing" data-depth=".25" style="--x:88%;--y:10%;--w:130px;--r:8deg" src="assets/ingredients/mint.webp" alt="">
+      <img class="ing" data-depth=".5" style="--x:52%;--y:82%;--w:96px;--r:-30deg" src="assets/ingredients/garlic.webp" alt="">
+      <img class="ing" data-depth=".4" style="--x:92%;--y:76%;--w:110px;--r:12deg" src="assets/ingredients/pomegranate.webp" alt="">
+      <img class="ing" data-depth=".7" style="--x:30%;--y:92%;--w:64px;--r:40deg" src="assets/ingredients/cinnamon.webp" alt="">
+    </div>
+  </section>
 
-      <div class="route" aria-hidden="true">
-        <span>Istambul</span>
-        <div class="route__line">
-          <svg class="route__boat" id="route-boat" viewBox="0 0 32 20"><path d="M3 12h26l-4 6H7Z" fill="currentColor"/><path d="M15 2v9M15 3l7 7h-7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+  <!-- ============ MENU EM DESTAQUE (vídeo 2) ============ -->
+  <section class="showcase" id="menu" aria-labelledby="menu-title">
+    <h2 class="section-title" id="menu-title">O nosso menu</h2>
+
+    <div class="showcase__stage">
+      <div class="showcase__plate-wrap" aria-hidden="true">
+        <div class="showcase__halo"></div>
+        <img class="plate showcase__plate" id="sc-plate" src="assets/dishes/sis.webp" alt="" width="900" height="900">
+      </div>
+
+      <div class="showcase__head" aria-live="polite">
+        <p class="showcase__cat" id="sc-cat">Pratos principais</p>
+        <h3 class="showcase__name">
+          <span class="showcase__tr" id="sc-tr">Şiş kebap</span>
+          <span class="showcase__pt" id="sc-pt">Espetadas no carvão</span>
+        </h3>
+        <div class="showcase__actions">
+          <a class="btn" id="sc-order" href="#reservas">Reservar para provar</a>
         </div>
-        <span>Maputo</span>
+      </div>
+
+      <div class="panel" id="sc-panel">
+        <div class="panel__tabs" role="tablist" aria-label="Detalhes do prato">
+          <button class="panel__tab" role="tab" id="tab-sobre" aria-selected="true" aria-controls="pane-sobre">Sobre o prato</button>
+          <button class="panel__tab" role="tab" id="tab-ingr" aria-selected="false" aria-controls="pane-ingr" tabindex="-1">Ingredientes</button>
+        </div>
+        <div class="panel__pane" role="tabpanel" id="pane-sobre" aria-labelledby="tab-sobre">
+          <p id="sc-desc"></p>
+        </div>
+        <div class="panel__pane" role="tabpanel" id="pane-ingr" aria-labelledby="tab-ingr" hidden>
+          <ul class="panel__list" id="sc-ingr"></ul>
+        </div>
       </div>
     </div>
 
-    <!-- Chegada -->
-    <div class="cartouche reveal" id="reveal">
-      <svg class="cartouche__tulip cartouche__tulip--l" aria-hidden="true"><use href="#tulip"/></svg>
-      <svg class="cartouche__tulip cartouche__tulip--r" aria-hidden="true"><use href="#tulip"/></svg>
-      <h1 class="reveal__title">Cozinha turca, feita em Maputo.</h1>
-      <p class="reveal__text">Kebab na brasa, mezze para partilhar e baklava com chá turco.</p>
-      <div class="reveal__cta">
-        <a class="btn" href="#restaurante">Ver o menu</a>
-        <a class="btn btn--ghost" href="#restaurante">Reservar mesa</a>
-      </div>
+    <div class="rail">
+      <button class="rail__arrow" id="sc-prev" type="button" aria-label="Prato anterior">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="rail__track" id="sc-rail" role="listbox" aria-label="Escolher prato"></div>
+      <button class="rail__arrow" id="sc-next" type="button" aria-label="Prato seguinte">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ NA NOSSA MESA (vídeo 1) ============ -->
+  <section class="table" id="mesa" aria-labelledby="mesa-title">
+    <div class="scatter" aria-hidden="true">
+      <img class="ing" data-depth=".3" style="--x:3%;--y:8%;--w:120px;--r:10deg" src="assets/ingredients/bay.webp" alt="">
+      <img class="ing" data-depth=".55" style="--x:90%;--y:4%;--w:90px;--r:-12deg" src="assets/ingredients/spice.webp" alt="">
+      <img class="ing" data-depth=".45" style="--x:6%;--y:86%;--w:110px;--r:-8deg" src="assets/ingredients/lemon.webp" alt="">
+      <img class="ing" data-depth=".35" style="--x:88%;--y:84%;--w:120px;--r:24deg" src="assets/ingredients/rosemary.webp" alt="">
     </div>
 
-    <button class="skip-trip" id="skip-trip" type="button">Saltar a viagem</button>
-  </div>
-</section>
+    <h2 class="section-title display" id="mesa-title">O que há na nossa mesa</h2>
+    <p class="section-lead">Escolha uma categoria e toque num prato para o ver em detalhe.</p>
 
-<main id="restaurante" class="next">
-  <h2>O restaurante começa aqui.</h2>
-  <p>Menu, a nossa história, galeria e reservas: é a próxima secção que vamos construir.</p>
+    <div class="tabs" role="tablist" aria-label="Categorias" id="cat-tabs">
+      <button role="tab" class="tabs__tab" data-cat="entradas" aria-selected="false" tabindex="-1">Entradas</button>
+      <button role="tab" class="tabs__tab" data-cat="principais" aria-selected="true">Pratos principais</button>
+      <button role="tab" class="tabs__tab" data-cat="sobremesas" aria-selected="false" tabindex="-1">Doces e chá</button>
+    </div>
+
+    <ul class="grid" id="dish-grid" role="tabpanel" aria-labelledby="cat-tabs"></ul>
+  </section>
+
+  <!-- ============ A CASA ============ -->
+  <section class="house" id="casa" aria-labelledby="casa-title">
+    <div class="house__plate" aria-hidden="true">
+      <img class="plate" data-spin src="assets/dishes/bife.webp" alt="" width="900" height="900" loading="lazy">
+    </div>
+    <div class="house__copy">
+      <h2 class="display" id="casa-title">O carvão manda na cozinha.</h2>
+      <p>Tudo o que sai da grelha passa pelo carvão: as espetadas, as costeletas, o bife. É a maneira turca de fazer carne, e é por isso que o cheiro chega à rua antes de si.</p>
+      <p>À mesa chegam também o pão quente, as saladas com sumagre e a pimenta pul biber, como numa lokanta de Istambul.</p>
+      <ul class="house__facts">
+        <li><strong>Grelha a carvão</strong><span>Kebab, köfte e cortes de carne</span></li>
+        <li><strong>Mezze para partilhar</strong><span>Húmus, lahmacun e sopa de lentilhas</span></li>
+        <li><strong>Chá turco</strong><span>Servido no copo de vidro tradicional</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ RESERVAS ============ -->
+  <section class="book" id="reservas" aria-labelledby="book-title">
+    <div class="scatter" aria-hidden="true">
+      <img class="ing" data-depth=".4" style="--x:6%;--y:14%;--w:90px;--r:-20deg" src="assets/ingredients/chili.webp" alt="">
+      <img class="ing" data-depth=".3" style="--x:86%;--y:18%;--w:120px;--r:14deg" src="assets/ingredients/mint.webp" alt="">
+      <img class="ing" data-depth=".5" style="--x:80%;--y:80%;--w:80px;--r:30deg" src="assets/ingredients/anise.webp" alt="">
+    </div>
+    <h2 class="display" id="book-title">Reserve a sua mesa</h2>
+    <p class="section-lead">Envie o pedido e confirmamos pelo WhatsApp.</p>
+    <form class="book__form" id="book-form" novalidate>
+      <label>Nome<input name="nome" autocomplete="name" required></label>
+      <label>Data<input name="data" type="date" required></label>
+      <label>Hora<input name="hora" type="time" min="11:00" max="23:00" required></label>
+      <label>Pessoas<input name="pessoas" type="number" min="1" max="30" value="2" required></label>
+      <p class="book__error" id="book-error" role="alert"></p>
+      <button class="btn" type="submit">Enviar pedido pelo WhatsApp</button>
+    </form>
+  </section>
 </main>
 
-<script src="js/hero.js"></script>
+<footer class="footer">
+  <div class="footer__tiles" aria-hidden="true"></div>
+  <div class="footer__inner">
+    <a class="brand" href="#top">
+      <svg class="brand__mark" viewBox="0 0 40 40" aria-hidden="true"><use href="#tulip"/></svg>
+      <span class="brand__name">Steak House</span>
+    </a>
+    <nav class="footer__col" aria-label="Site">
+      <h3>Site</h3>
+      <a href="#menu">Menu</a><a href="#mesa">Pratos</a><a href="#casa">A casa</a><a href="#reservas">Reservas</a>
+    </nav>
+    <div class="footer__col">
+      <h3>Siga-nos</h3>
+      <a href="https://www.instagram.com/steak_house_restorant/" rel="noopener" target="_blank">Instagram @steak_house_restorant</a>
+    </div>
+    <div class="footer__col">
+      <h3>Maputo, Moçambique</h3>
+      <a href="creditos.html">Créditos das imagens</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Tulipa (símbolo recorrente na arte otomana) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="tulip" viewBox="0 0 40 40">
+    <path d="M20 37c0-8 0-12-7-17 2 7 5 9 7 17Zm0 0c0-8 0-12 7-17-2 7-5 9-7 17Z" fill="#3f6b3a"/>
+    <path d="M20 22c-6-3-8-10-6-17 2 3 4 4 6 4s4-1 6-4c2 7 0 14-6 17Z" fill="currentColor"/>
+  </symbol>
+</svg>
+
+<script src="js/menu-data.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>
