@@ -1,0 +1,60 @@
+:root {
+  --ink: #0b2a35;
+  --deep: #103947;
+  --gold: #ffe2a7;
+  --sand: #f4ead8;
+  --terracotta: #c8643b;
+  --serif: "Cormorant Garamond", Georgia, serif;
+  --sans: "Inter", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--ink); color: var(--sand); font-family: var(--sans); line-height: 1.6; }
+
+.topbar {
+  position: fixed; inset: 0 0 auto; z-index: 10;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 18px clamp(16px, 4vw, 48px);
+  background: linear-gradient(rgba(11, 42, 53, .7), transparent);
+}
+.brand { font-family: var(--serif); font-size: 1.5rem; color: var(--gold); text-decoration: none; letter-spacing: .02em; white-space: nowrap; }
+.topbar nav { display: flex; gap: clamp(12px, 3vw, 32px); }
+.topbar nav a { color: var(--sand); text-decoration: none; font-size: .85rem; letter-spacing: .08em; text-transform: uppercase; opacity: .85; }
+.topbar nav a:hover { opacity: 1; color: var(--gold); }
+
+/* Viagem */
+.journey { height: 600vh; position: relative; }
+.journey__sticky { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; background: var(--deep) url("../assets/viagem/poster.jpg") center / cover; }
+#journey-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.journey__shade { position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 45%, rgba(8, 30, 38, .55) 100%),
+              linear-gradient(90deg, rgba(8, 30, 38, .6) 0%, transparent 45%); }
+
+.chapters { list-style: none; position: absolute; left: clamp(16px, 6vw, 96px); bottom: clamp(72px, 14vh, 160px); max-width: 420px; }
+.chapters li { position: absolute; bottom: 0; left: 0; width: max-content; max-width: 80vw;
+  opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+.chapters li.is-active { opacity: 1; transform: none; }
+.chapters__n { font-size: .8rem; letter-spacing: .3em; color: var(--gold); }
+.chapters h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(2.6rem, 7vw, 5.5rem); line-height: 1; color: #fff; text-shadow: 0 2px 24px rgba(0, 0, 0, .45); }
+.chapters p { font-family: var(--serif); font-style: italic; font-size: clamp(1.1rem, 2.2vw, 1.5rem); color: var(--sand); }
+
+.progress { position: absolute; left: clamp(16px, 6vw, 96px); right: clamp(16px, 6vw, 96px); bottom: 32px; height: 2px; background: rgba(255, 226, 167, .2); }
+.progress__bar { height: 100%; width: 0; background: var(--gold); }
+
+.scroll-hint { position: absolute; right: clamp(16px, 6vw, 96px); bottom: 48px; font-size: .75rem; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); transition: opacity .4s; }
+
+/* Conteúdo */
+.content { max-width: 880px; margin: 0 auto; padding: 96px clamp(16px, 5vw, 48px); }
+.content section { padding: 64px 0; border-top: 1px solid rgba(255, 226, 167, .15); }
+.content h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(2rem, 5vw, 3rem); color: var(--gold); margin-bottom: 12px; }
+
+@media (max-width: 520px) {
+  .brand { font-size: 1.2rem; }
+  .topbar nav { gap: 12px; }
+  .topbar nav a { font-size: .7rem; letter-spacing: .05em; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chapters li { transition: none; }
+}

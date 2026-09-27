@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bar & Eventos — Istambul → Maputo</title>
+<meta name="description" content="Uma viagem de Istambul a Maputo. Bar e eventos.">
+<link rel="preload" as="image" href="assets/viagem/env_01_istambul-m.webp" media="(max-width: 900px)">
+<link rel="preload" as="image" href="assets/viagem/env_01_istambul.webp" media="(min-width: 901px)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <a class="brand" href="#">Bar &amp; Eventos</a>
+  <nav>
+    <a href="#sobre">Sobre</a>
+    <a href="#eventos">Eventos</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+</header>
+
+<!-- Viagem: animação desenhada em canvas, controlada pelo scroll -->
+<section class="journey" id="journey">
+  <div class="journey__sticky">
+    <canvas id="journey-canvas" aria-hidden="true"></canvas>
+    <div class="journey__shade"></div>
+
+    <ol class="chapters">
+      <li data-at="0"><span class="chapters__n">01</span><h2>Istambul</h2><p>Onde a viagem começa.</p></li>
+      <li data-at="1"><span class="chapters__n">02</span><h2>Mediterrâneo</h2><p>Azul profundo, sol dourado.</p></li>
+      <li data-at="2"><span class="chapters__n">03</span><h2>África Oriental</h2><p>Terra, rios e padrões.</p></li>
+      <li data-at="3"><span class="chapters__n">04</span><h2>Costa de Maputo</h2><p>O mar anuncia a chegada.</p></li>
+      <li data-at="4"><span class="chapters__n">05</span><h2>Maputo</h2><p>Bem-vindo a casa.</p></li>
+    </ol>
+
+    <div class="progress"><div class="progress__bar" id="progress"></div></div>
+    <p class="scroll-hint" id="scroll-hint">Deslize para viajar</p>
+  </div>
+</section>
+
+<main class="content">
+  <section id="sobre">
+    <h2>Sobre</h2>
+    <p>Texto sobre o bar — a história, o conceito, o ambiente. (a preencher)</p>
+  </section>
+  <section id="eventos">
+    <h2>Eventos</h2>
+    <p>Agenda de eventos e reservas. (a preencher)</p>
+  </section>
+  <section id="contacto">
+    <h2>Contacto</h2>
+    <p>Morada, horário, WhatsApp, Instagram. (a preencher)</p>
+  </section>
+</main>
+
+<script src="js/journey.js"></script>
+</body>
+</html>
