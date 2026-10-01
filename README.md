@@ -3,6 +3,7 @@
 Conceito de site com a identidade do Infinitos (Zimpeto, Maputo — Instagram:
 [@infinitos.mz](https://www.instagram.com/infinitos.mz/)): fundos pretos, laranja #FF6A1A e branco.
 O menu e os textos gastronómicos são provisórios e serão actualizados.
+
 Site estático (HTML/CSS/JS, sem build). Para ver localmente:
 
 ```
